@@ -1,12 +1,10 @@
-# Automated Circular Design of High-Performance MOFs by Material Fingerprints and Transfer Learning (ItConCA)
+# Intelligent Design of High-Performance MOFs Based on Material Fingerprints and Transfer Learning
 ## Iterative Construction of Crystal Adsorbent (ItConCA)
 
 This repository contains the transfer learning model and the automated design submission script codes for hypothetical MOFs, along with the corresponding datasets described in our paper.
 
 ## Project Description
 This project focuses on the automated design of high-performance MOFs (Metal-Organic Frameworks) through material fingerprints and transfer learning. The repository includes code for running transfer learning models, automating the MOF design process, and managing related datasets. This project aims to accelerate the discovery and optimization of hypothetical MOFs by predicting performance and facilitating efficient molecular simulation workflows.
-
----
 
 ## Project Organization
 -----------------------
@@ -81,8 +79,6 @@ This project focuses on the automated design of high-performance MOFs (Metal-Org
 ├── OptimalFingerprint.py       <- Script for selecting the optimal molecular fingerprint
 └── ScreenLinkers.py            <- Script for screening linkers
 
----
-
 ## Requirements
 1. A Python environment with version 3.7 or higher is required.
 2. This script should be run in a Linux environment.
@@ -128,7 +124,7 @@ This project focuses on the automated design of high-performance MOFs (Metal-Org
 
 ## Example
 After running the following command:
-    ```bash
+
     conda activate dl-env
     chmod 777 main_auto.sh
     nohup sh main_auto.sh > output.log 2>&1 &
