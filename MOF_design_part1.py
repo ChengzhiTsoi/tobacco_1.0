@@ -24,8 +24,8 @@ for k in os.listdir(path3):
 for l in os.listdir(path4):
     os.remove(path4 + '/' + l)
     
-path5 = 'tobacco_1.0-master/edges_bb'
-path6 = 'tobacco_1.0-master/output_structures'
+path5 = 'tobacco_1.0/edges_bb'
+path6 = 'tobacco_1.0/output_structures'
 for m in os.listdir(path5):
     os.remove(path5 + '/' + m)
 for n in os.listdir(path6):
@@ -84,15 +84,15 @@ for single_new_cif in pathname_new_cif:
         pass
     else:
         old_path = path_new_cif + '/' + single_new_cif
-        new_path = 'tobacco_1.0-master/edges_bb/' + single_new_cif
+        new_path = 'tobacco_1.0/edges_bb/' + single_new_cif
         shutil.copy(old_path, new_path)
 print('Cif file has been transferred.')
-os.system('cd tobacco_1.0-master && python main_auto.py')
+os.system('cd tobacco_1.0 && python main_auto.py')
 print('ToBaCCo has finished running')
 
 
 # 6. Transferring new mofs and doing geometry optimization of MOFs 
-path_new_mof = 'tobacco_1.0-master/output_structures'
+path_new_mof = 'tobacco_1.0/output_structures'
 path_new_mof_1 = 'new_designed_mofs'
 for o in os.listdir(path_new_mof):
     if 'best_mol_' not in o:
