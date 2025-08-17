@@ -1,9 +1,4 @@
 # -*- coding: utf-8 -*-
-"""
-Created on Mon Jul 29 18:03:33 2024
-
-@author: Coretshz
-"""
 
 import shutil
 import os
