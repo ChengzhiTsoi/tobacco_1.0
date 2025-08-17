@@ -1,0 +1,33 @@
+#!/bin/bash
+topdir=$PWD
+N_samp=$(wc -l < MOFs_gcmc.csv) 
+
+sed -i 's/\r$//' MOFs_gcmc.csv
+for ((i=1; i<N_samp; i++))
+do
+    Row=$((i + 1))
+    read FrameworkName <<< $(awk 'FNR=='$Row' {print $1}' MOFs_gcmc.csv)
+
+    dir= "$FrameworkName/Output/System_0"
+
+    if [ -d "$dir" ]; then
+        
+        cd "$dir" || continue
+
+        echo $COUNTER >> "${topdir}/N_mg.g-1.txt"
+
+        if compgen -G "*.data" > /dev/null; then
+            grep "Average loading absolute" *.data | grep "milligram/gram framework" >> "${topdir}/N_mg.g-1.txt"
+        else
+            echo "No .data files found in ${dir}."
+        fi
+
+        echo $COUNTER
+
+        cd "$topdir" || exit
+    else
+        echo "Directory $dir does not exist."
+        echo $COUNTER >> "${topdir}/N_mg.g-1.txt"
+    fi
+done
+

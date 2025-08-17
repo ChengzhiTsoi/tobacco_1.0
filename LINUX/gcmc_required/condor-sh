@@ -1,0 +1,10 @@
+#!/bin/bash
+universe = vanilla
+output = test.output
+error = errors.txt
+should_transfer_files = yes
+when_to_transfer_output = on_exit
+transfer_input_files = INDEX.cif,simulation.input
+log = test.logfile
+executable = /scratch365/ccai/ADTL/LINUX/INDEX/raspa.sh
+queue

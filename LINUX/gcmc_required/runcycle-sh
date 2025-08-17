@@ -1,0 +1,112 @@
+o#!/bin/sh
+topdir=$PWD
+N_samp=$(wc -l < MOFs_gcmc.csv) 
+
+sed -i 's/\r$//' MOFs_gcmc.csv
+for ((i=1; i<N_samp; i++))
+do
+    Row=$((i + 1))
+    read FrameworkName <<< $(awk 'FNR=='$Row' {print $1}' MOFs_gcmc.csv)
+    
+    if [ -d "$FrameworkName" ]; then
+        rm -r $FrameworkName
+    fi
+ 
+    mkdir -p $FrameworkName
+    cd $FrameworkName
+
+    cp ../raspa.sh ${topdir}/prepared_mofs/$FrameworkName.mol ../simulation.input ../condor-sh .
+    
+    sed -i 's/INDEX/'${FrameworkName}'/' simulation.input
+    
+while IFS=' ' read -r key value
+do
+    case "$key" in
+        _cell_length_a) ia="$value" ;;
+        _cell_length_b) ib="$value" ;;
+        _cell_length_c) ic="$value" ;;
+    esac
+done < <(grep -E '_cell_length_[abc]' $FrameworkName.cif)
+
+if [ `echo $ia | awk -v bi=30 '{print($1>bi)?"1":"0"}'` -eq "1" ]
+ then
+ ja=1
+elif [ `echo $ia | awk -v bi=3 '{print($1<bi)?"1":"0"}'` -eq "1" ]
+ then 
+ ja=15
+elif [ `echo $ia | awk -v bi=4 '{print($1<bi)?"1":"0"}'` -eq "1" ]
+ then 
+ ja=12
+elif [ `echo $ia | awk -v bi=5 '{print($1<bi)?"1":"0"}'` -eq "1" ]
+ then 
+ ja=8
+elif [ `echo $ia | awk -v bi=8 '{print($1<bi)?"1":"0"}'` -eq "1" ]
+ then 
+ ja=6
+elif [ `echo $ia | awk -v bi=10 '{print($1<bi)?"1":"0"}'` -eq "1" ]
+ then 
+ ja=4
+elif [ `echo $ia | awk -v bi=15 '{print($1<bi)?"1":"0"}'` -eq "1" ]
+ then 
+ ja=3
+else
+ ja=2
+fi
+
+if [ `echo $ib | awk -v bi=30 '{print($1>bi)?"1":"0"}'` -eq "1" ]
+ then
+ jb=1
+elif [ `echo $ib | awk -v bi=3 '{print($1<bi)?"1":"0"}'` -eq "1" ]
+ then 
+ jb=15
+elif [ `echo $ib | awk -v bi=4 '{print($1<bi)?"1":"0"}'` -eq "1" ]
+ then 
+ jb=12
+elif [ `echo $ib | awk -v bi=5 '{print($1<bi)?"1":"0"}'` -eq "1" ]
+ then 
+ jb=8
+elif [ `echo $ib | awk -v bi=8 '{print($1<bi)?"1":"0"}'` -eq "1" ]
+ then 
+ jb=6
+elif [ `echo $ib | awk -v bi=10 '{print($1<bi)?"1":"0"}'` -eq "1" ]
+ then 
+ jb=4
+elif [ `echo $ib | awk -v bi=15 '{print($1<bi)?"1":"0"}'` -eq "1" ]
+ then 
+ jb=3
+else
+ jb=2
+fi
+
+if [ `echo $ic | awk -v bi=30 '{print($1>bi)?"1":"0"}'` -eq "1" ]
+ then
+ jc=1
+elif [ `echo $ic | awk -v bi=3 '{print($1<bi)?"1":"0"}'` -eq "1" ]
+ then 
+ jc=15
+elif [ `echo $ic | awk -v bi=4 '{print($1<bi)?"1":"0"}'` -eq "1" ]
+ then 
+ jc=12
+elif [ `echo $ic | awk -v bi=5 '{print($1<bi)?"1":"0"}'` -eq "1" ]
+ then 
+ jc=8
+elif [ `echo $ic | awk -v bi=8 '{print($1<bi)?"1":"0"}'` -eq "1" ]
+ then 
+ jc=6
+elif [ `echo $ic | awk -v bi=10 '{print($1<bi)?"1":"0"}'` -eq "1" ]
+ then 
+ jc=4
+elif [ `echo $ic | awk -v bi=15 '{print($1<bi)?"1":"0"}'` -eq "1" ]
+ then 
+ jc=3
+else
+ jc=2
+fi
+
+    sed -i -e 's/UnitCells\ 1\ 1\ 1/UnitCells\ '$ja'\ '$jb'\ '$jc'/g' simulation.input
+    sed -i 's/INDEX/'${FrameworkName}'/' raspa.sh
+    sed -i 's/INDEX/'${FrameworkName}'/' condor-sh
+
+    condor_submit condor-sh
+    cd ..
+done

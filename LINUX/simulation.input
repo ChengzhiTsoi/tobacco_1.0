@@ -1,0 +1,76 @@
+SimulationType                MC
+NumberOfCycles                10000
+NumberOfEquilibrationCycles   10000
+PrintEvery                    1000
+PrintPropertiesEvery          1000
+RestartFile                   no
+
+Forcefield                    COREMOF_eqeq
+UseChargesFromMOLFile         yes
+ChargeMethod                  Ewald
+CutOff                        12.0
+CutOffCoulomb                 12.0
+
+Framework 0
+FrameworkName INDEX
+UnitCells 1 1 1
+InputFileType mol
+HeliumVoidFraction 0.694
+ExternalTemperature 298.0 
+ExternalPressure 1e6
+
+ComputeDensityProfile3DVTKGrid no
+WriteDensityProfile3DVTKGridEvery 5000
+DensityProfile3DVTKGridPoints 150 150 150
+AverageDensityOverUnitCellsVTK no
+DensityAveragingTypeVTK FullBox
+			
+Movies no
+WriteMoviesEvery 100
+ComputeRDF no
+WriteRDFEvery 100
+
+Component 0 MoleculeName                      CH4
+            MoleculeDefinition                TraPPE
+            MolFraction                       0.70
+            TranslationProbability            1
+            RotationProbability               1
+            SwapProbability                   1.0
+            ReinsertionProbability            1.0
+            CreateNumberOfMolecules           0
+
+Component 1 MoleculeName                      C2
+            MoleculeDefinition                TraPPE
+            MolFraction                       0.10
+            TranslationProbability            1
+            RotationProbability               1
+            SwapProbability                   1.0
+            ReinsertionProbability            1.0
+            CreateNumberOfMolecules           0
+
+Component 2 MoleculeName                      C3
+            MoleculeDefinition                TraPPE
+            MolFraction                       0.05
+            TranslationProbability            1
+            RotationProbability               1
+            SwapProbability                   1.0
+            ReinsertionProbability            1.0
+            CreateNumberOfMolecules           0
+
+Component 3 MoleculeName                      CO2
+            MoleculeDefinition                TraPPE
+            MolFraction                       0.10
+            TranslationProbability            1
+            RotationProbability               1
+            SwapProbability                   1.0
+            ReinsertionProbability            1.0
+            CreateNumberOfMolecules           0
+
+Component 4 MoleculeName                      H2S_qiao
+            MoleculeDefinition                TraPPE
+            MolFraction                       0.05
+            TranslationProbability            1
+            RotationProbability               1
+            SwapProbability                   1.0
+            ReinsertionProbability            1.0
+            CreateNumberOfMolecules           0

@@ -1,4 +1,5 @@
 # Intelligent Design of High-Performance MOFs Based on Material Fingerprints and Transfer Learning
+## Iterative Construction of Crystal Adsorbent (ItConCA)
 
 This repository contains the transfer learning model and the automated design submission script codes for hypothetical MOFs, along with the corresponding datasets described in our paper.
 
@@ -81,23 +82,25 @@ This project focuses on the automated design of high-performance MOFs (Metal-Org
 ## Requirements
 1. A Python environment with version 3.7 or higher is required.
 2. This script should be run in a Linux environment.
-3. Make sure your Python environment contains the following packages: "RDKit", "torch", "scikit-learn", "openpyxl", "pytorch-ignite", "ase" and "openmpi", "pymatgen", "paramiko", "lammps-interface".
+3. Make sure your Python environment contains the following packages: "RDKit", "torch", "scikit-learn", "openpyxl", "pytorch-ignite", "ase" and "openmpi", "pymatgen", "paramiko".
 4. Make sure you have installed LAMMPS. [https://www.lammps.org/#gsc.tab=0]
 5. Ensure that the MOLECULE and EXTRA-MOLECULE packages are enabled in LAMMPS.
-6. Make sure you have installed RASPA. [https://iraspa.org/raspa/]
-7. Make sure that the required molecular files (.def) and forcefield files are placed in "/LINUX/gcmc_required". Moreover, Raspa input files (.input) is placed in "/LINUX".
-8. Make sure you have installed parallel. [http://ftpmirror.gnu.org/parallel/]
+6. Make sure you have installed LAMMPS_interface. [https://github.com/peteboyd/lammps_interface]
+7. Make sure you have installed RASPA. [https://iraspa.org/raspa/]
+8. Make sure that the required molecular files (.def) and forcefield files are placed in "/LINUX/gcmc_required". Moreover, Raspa input files (.input) is placed in "/LINUX".
+9. Make sure you have installed parallel. [http://ftpmirror.gnu.org/parallel/]
 
 ## Usage
 1. Fill in the LAMMPS path in the "LAMMPS_DIR" variable of the "required_path.sh" file, ensuring that the "lmp_mpi" can be found in the "${LAMMPS_DIR}/src" directory.
-2. Fill in the RASPA path in the "RASPA_DIR" variable of the "required_path.sh" file, ensuring that the "${RASPA_DIR}/bin", "${RASPA_DIR}/lib", and "${RASPA_DIR}/share" directories exist and contain the required files.
-3. Fill in the number of concurrent tasks in the "required_path.sh" file, please ensure the server has enough CPU cores to support the maximum number of concurrent tasks.
-4. Place the MOL files of the top-performing MOFs' linkers into the "/optimal_linker" directory.
-5. Place the CIF files for all the nodes (.cif) and the TEMPLATE files for all the topologies (.template) into the "/all_nodes" directory and "/all_topologies" directory, respectively.
-6. Also, copy the node files (.cif) and topology files (.template) into the "/tobacco_1.0-master/nodes_bb" directory and "/tobacco_1.0-master/templates" directory, respectively.
-7. A batch of MOF data with computed performance needs to be added to "TL/final_data.xlsx". This data should include the MACCS fingerprints derived from the linkers, one-hot encodings for the nodes and topologies (the number of bits in the one-hot encoding should match the number of files in "/all_nodes" and "/all_topologies" directories), and the unit cell sizes (Length A, B, C) of the MOFs. The data should be organized in the following order: MOF name, MACCS fingerprint, node one-hot encoding, topology one-hot encoding, crystal size, and MOFs" performance. This worksheet should be named "Cycle 0".
-8. Place a pre-trained model file named "Pretrained_model.ckpt" in the "/TL" directory. Ensure that the input layer size of "Pretrained_model.ckpt" matches the total number of MACCS fingerprints, as well as the number of files in the "/all_nodes" and "/all_topologies" directories.
-9. Run the following commands in the Linux terminal:
+2. Fill in the LAMMPS_interface path in the "LAMMPS_INT_DIR" variable of the "required_path.sh" file, ensuring that the "lammps-interface" can be found in the "${LAMMPS_INT_DIR}/bin" directory.
+3. Fill in the RASPA path in the "RASPA_DIR" variable of the "required_path.sh" file, ensuring that the "${RASPA_DIR}/bin", "${RASPA_DIR}/lib", and "${RASPA_DIR}/share" directories exist and contain the required files.
+4. Fill in the number of concurrent tasks in the "required_path.sh" file, please ensure the server has enough CPU cores to support the maximum number of concurrent tasks.
+5. Place the MOL files of the top-performing MOFs' linkers into the "/optimal_linker" directory.
+6. Place the CIF files for all the nodes (.cif) and the TEMPLATE files for all the topologies (.template) into the "/all_nodes" directory and "/all_topologies" directory, respectively.
+7. Also, copy the node files (.cif) and topology files (.template) into the "/tobacco_1.0-master/nodes_bb" directory and "/tobacco_1.0-master/templates" directory, respectively.
+8. A batch of MOF data with computed performance needs to be added to "TL/final_data.xlsx". This data should include the MACCS fingerprints derived from the linkers, one-hot encodings for the nodes and topologies (the number of bits in the one-hot encoding should match the number of files in "/all_nodes" and "/all_topologies" directories), and the unit cell sizes (Length A, B, C) of the MOFs. The data should be organized in the following order: MOF name, MACCS fingerprint, node one-hot encoding, topology one-hot encoding, crystal size, and MOFs" performance. This worksheet should be named "Cycle 0".
+9. Place a pre-trained model file named "Pretrained_model.ckpt" in the "/TL" directory. Ensure that the input layer size of "Pretrained_model.ckpt" matches the total number of MACCS fingerprints, as well as the number of files in the "/all_nodes" and "/all_topologies" directories.
+10. Run the following commands in the Linux terminal:
 
    # 1. Activate the conda environment
    # Replace ${YOUR_ENV_NAME} with the name of your actual conda environment.
@@ -148,5 +151,4 @@ This project is licensed under the [Creative Commons Zero v1.0 Universal License
 This work is supported by Guangzhou Key Laboratory New Energy and Green Catalysis, Joint Institute of Guangzhou University & Institute of Corrosion Science and Technology, Guangzhou University and Center for Research Computing at the University of Notre Dame for computational resources. Special thanks to the project collaborators for their contributions and insights.
 
 ## Citation
-If you use this code or dataset in your research, please cite the following publication:"# ADTL_v1" 
-"# ADTL_v1" 
+If you use this code or dataset in your research, please cite the following publication:
