@@ -10,8 +10,6 @@ content_2 = '''M  END
 /n'''
 
 def CiftoMol(ciffile, molfile):
-    ciffile = "gcmc_selected_mofs/bor_sym_3_mc_0_qzw_sym_4_mc_1_best_mol_64996 549.cif"
-    molfile = 'output.mol'
     with open(molfile, "w+") as molfile1:
         molfile1.write(content_1)
         
